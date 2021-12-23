@@ -11,7 +11,7 @@ private  String description;
 private  String title;
 private int priority;
 
-    public note(String description, String title, int priority) {
+    public note(String title , String description, int priority) {
         this.description = description;
         this.title = title;
         this.priority = priority;
