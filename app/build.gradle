@@ -55,4 +55,7 @@ dependencies {
     //cardview
         implementation "androidx.cardview:cardview:1.0.0"
     //material design
+    //life cycle
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+
 }

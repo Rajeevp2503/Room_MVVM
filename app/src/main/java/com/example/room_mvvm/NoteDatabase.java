@@ -9,13 +9,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {note.class},version = 1)
+@Database(entities = {note.class}, version = 1,exportSchema = false)
 public abstract class NoteDatabase extends RoomDatabase {
-    private static NoteDatabase instance;
-    public abstract NoteDao noteDao();//Room sub class our abstract class
 
-    public  static synchronized NoteDatabase getInstance(Context context){
-        if (instance==null){
+    private static NoteDatabase instance;
+
+    public abstract NoteDao noteDao();
+
+    public static synchronized NoteDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     NoteDatabase.class, "note_database")
                     .fallbackToDestructiveMigration()
@@ -24,22 +26,27 @@ public abstract class NoteDatabase extends RoomDatabase {
         }
         return instance;
     }
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
         }
     };
-    private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void>{
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private NoteDao noteDao;
-        private PopulateDbAsyncTask(NoteDatabase db){
-            noteDao=db.noteDao();
+
+        private PopulateDbAsyncTask(NoteDatabase db) {
+            noteDao = db.noteDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new note("Title1","Desc1",1));
-            noteDao.insert(new note("Title2","Desc2",2));
-            noteDao.insert(new note("Title3","Desc3",3));
+            noteDao.insert(new note("Title 1", "Description 1", 1));
+            noteDao.insert(new note("Title 2", "Description 2", 2));
+            noteDao.insert(new note("Title 3", "Description 3", 3));
             return null;
         }
     }
