@@ -31,7 +31,7 @@ private List<note> notes = new ArrayList<>();
 
         Log.e("rajjjj",CurrentNote.getTitle());
 
-        holder.desc.setText(CurrentNote.getTitle());
+        holder.desc.setText(CurrentNote.getDescription());
         holder.Priority.setText(String.valueOf(CurrentNote.getPriority()));
 
     }
