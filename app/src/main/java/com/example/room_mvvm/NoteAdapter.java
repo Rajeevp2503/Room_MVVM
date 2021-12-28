@@ -44,6 +44,9 @@ private List<note> notes = new ArrayList<>();
         this.notes = notes;
         notifyDataSetChanged();
     }
+    public note getNoteAt(int position){
+        return notes.get(position);
+    }
 
 
     class NoteHolder extends RecyclerView.ViewHolder{
