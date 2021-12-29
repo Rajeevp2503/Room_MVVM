@@ -27,11 +27,11 @@ private List<note> notes = new ArrayList<>();
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        note CurrentNote = notes.get(position);
 
+        note CurrentNote = notes.get(position);
         holder.title.setText(CurrentNote.getTitle());
 
-        Log.e("rajjjj",CurrentNote.getTitle());
+       // Log.e("rajjjj",CurrentNote.getTitle());
 
         holder.desc.setText(CurrentNote.getDescription());
         holder.Priority.setText(String.valueOf(CurrentNote.getPriority()));

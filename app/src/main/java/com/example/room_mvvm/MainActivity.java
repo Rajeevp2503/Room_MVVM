@@ -89,10 +89,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra("TITLE");
-            String desc = data.getStringExtra("DESC");
-            int prioity = data.getIntExtra("PRIORITY", 1);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String title = data.getStringExtra("EXTRA_TITLE");
+            String desc = data.getStringExtra("EXTRA_DESCRIPTION");
+
+            int prioity = data.getIntExtra("EXTRA_PRIORITY", 1);
 
             note note = new note(title, desc, prioity);
             noteViewModel.insert(note);
