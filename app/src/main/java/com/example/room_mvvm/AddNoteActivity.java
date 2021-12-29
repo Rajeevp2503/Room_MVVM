@@ -28,7 +28,16 @@ public class AddNoteActivity extends AppCompatActivity {
         numberpicker.setMaxValue(15);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Add Note");
+        Intent intent = getIntent();
+        if (intent.hasExtra("EXTRA_ID")) {
+            setTitle("Edit Note");
+            title.setText(intent.getStringExtra("EXTRA_TITLE"));
+            description.setText(intent.getStringExtra("EXTRA_DESCRIPTION"));
+            numberpicker.setValue(intent.getIntExtra("EXTRA_PRIORITY", 1));
+
+        } else {
+            setTitle("Add Note");
+        }
     }
 
     @Override
@@ -59,9 +68,15 @@ public class AddNoteActivity extends AppCompatActivity {
             return;
         }
         Intent data = new Intent();
-        data.putExtra("TITLE", stitle);
-        data.putExtra("DESC", sdescription);
-        data.putExtra("PRIORITY", spriority);
+        data.putExtra("EXTRA_TITLE", stitle);
+        data.putExtra("EXTRA_DESCRIPTION", sdescription);
+        data.putExtra("EXTRA_PRIORITY", spriority);
+
+        int id = getIntent().getIntExtra("EXTRA_ID", -1);
+        if (id != -1) {
+            data.putExtra("EXTRA_ID", id);
+        }
+
         setResult(RESULT_OK, data);
         finish();
 
